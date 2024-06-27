@@ -9,14 +9,27 @@
     <div>
         <div>
             <h1>Add a new blog</h1>
-            <form>
+            <form id="form">
                 <span>Blog title</span><br>
-                <input type="text" placeholder=""><br><br>
+                <input type="text" placeholder="" id="title"><br><br>
                 <span>Blog content</span><br>
-                <textarea cols="100" rows="30" placeholder=""></textarea><br><br>
+                <textarea cols="100" rows="30" placeholder="" id="content"></textarea><br><br>
                 <input type="submit" value="submit">
             </form>
         </div>
     </div>
+    <script>
+       document.getElementById("form").onsubmit = function(e){
+        e.preventDefault()
+        fetch("http://localhost/add-blog",{
+            method:"POST",
+           body:JSON.stringify({
+            "title":document.getElementById("title").value,
+            "content":document.getElementById("content").value
+           })
+        }).then(r=>r.text()).then(b=>console.log(b))
+       }
+        
+    </script>
 </body>
 </html>

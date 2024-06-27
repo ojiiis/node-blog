@@ -9,22 +9,26 @@
     <div id="blog">
        <div style="display:flex"> <h1>Blogs</h1>
         <a href="add-blog.html">Add new blog</a></div>
-        <div>
-        <a href="single-blog.html">
-            <h2>post title</h2>
-            <p>post body post body post body post body post body post body post body post body post body post body post body post body post body post body post body post body post body </p>
-        </a>
+        <div id="datas">
+        
 
-        <a href="single-blog.html">
-            <h2>post title</h2>
-            <p>post body post body post body post body post body post body post body post body post body post body post body post body post body post body post body post body post body </p>
-        </a>
-
-        <a href="single-blog.html">
-            <h2>post title</h2>
-            <p>post body post body post body post body post body post body post body post body post body post body post body post body post body post body post body post body post body </p>
-        </a>
+            
       </div>
     </div>
+    <script>
+         
+        fetch("http://localhost/blogs").then(r=>r.json()).then(b=>{
+          var data = "";
+            for(let i = 0; i < b.length; i++){
+                console.log();
+                data += `<a href="single-blog.html?blog_id=${b[i].blog_id}">
+                <h2>${b[i].title}</h2>
+                <p>${b[i].body}</p>
+            </a>`;
+            }
+            document.getElementById("datas").innerHTML = data
+         })
+         
+     </script>
 </body>
 </html>

@@ -10,5 +10,17 @@
         <h1>Blogs</h1>
         <p>dasd sdasd</p>
     </div>
+    <script>
+       var query = window.location.href.split("?")[1];
+       var id = query.split("=")[1];
+       fetch("http://localhost/single-blog",{
+        method:"POST",
+        body:JSON.stringify({
+            id
+        })
+       }).then(r=>r.text()).then(r=>{
+        console.log(r)
+       })
+    </script>
 </body>
 </html>
