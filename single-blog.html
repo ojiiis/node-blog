@@ -11,15 +11,19 @@
         <p>dasd sdasd</p>
     </div>
     <script>
-       var query = window.location.href.split("?")[1];
-       var id = query.split("=")[1];
+
+   
+        var query = window.location.href.split("?")[1];
+       var blog_id = query.split("=")[1];
        fetch("http://localhost/single-blog",{
         method:"POST",
         body:JSON.stringify({
-            id
+            blog_id
         })
-       }).then(r=>r.text()).then(r=>{
-        console.log(r)
+       }).then(r=>r.json()).then(r=>{
+        var r = r[0]
+        document.getElementsByTagName("h1")[0].innerText = r.title;
+        document.getElementsByTagName("p")[0].innerText = r.body;
        })
     </script>
 </body>

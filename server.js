@@ -22,9 +22,9 @@ if(request.method == "POST"){
      response.statusCode = 200;
      response.end();
     }else if(request.url == "/single-blog"){
-        response.setHeader("Content-type","text/plain");
+        response.setHeader("Content-type","text/json");
         response.setHeader("Access-Control-Allow-Origin","*")
-        response.statusCode = 200
+        
          
         var rawData = [];
         request.on("data",(d)=>{
@@ -32,9 +32,18 @@ if(request.method == "POST"){
         });
         request.on("end",()=>{
             var realData = Buffer.concat(rawData).toString()
-           response.write(realData);
-           response.statusCode = 200;
+            
+            con.query("SELECT `title`,`body`,`date` FROM `blog` WHERE blog_id='"+JSON.parse(realData).blog_id+"'",(err,rows)=>{
+                
+                if(!err){
+                
+                response.write(JSON.stringify(rows));
+                response.statusCode = 200;
             response.end()
+               } 
+            })
+           
+           
         })
        
     }else if(request.url == "/add-blog"){
